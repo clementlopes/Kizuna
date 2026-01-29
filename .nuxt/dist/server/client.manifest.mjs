@@ -1,0 +1,1 @@
+export { default } from "file:///C:/Users/User/OneDrive%20-%20Agrupamento%20de%20Escolas%20de%20Santa%20Maria%20Maior/Documentos/PAP/Kizuna/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"
