@@ -1,7 +1,7 @@
 export interface NewUserType {
-  name: string;
+  // name: string;
   email: string;
-  themeMode: string;
+  // themeMode: string;
   password: string;
   passwordConfirm: string;
 }

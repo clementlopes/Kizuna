@@ -21,22 +21,23 @@ export const useMyAuthStore = defineStore('auth', () => {
       `${String(d.getMonth() + 1).padStart(2, '0')}-` +
       `${d.getFullYear()}`;
 
-    if (record.themeMode === '') {
-      record.themeMode = themeStore.activeTheme;
-    }
+    // if (record.themeMode === '') {
+    //   record.themeMode = themeStore.activeTheme;
+    // }
 
     return {
       id: record.id,
       token: authData.token,
-      name: record.name,
+      // name: record.name,
       email: record.email,
-      avatar,
+      // avatar,
       created,
-      themeMode: record.themeMode,
+      // themeMode: record.themeMode,
       password: '',
       passwordConfirm: '',
       oldPassword: '',
-      avatarFile: null,
+      // avatarFile: null,
+      avatarURL: avatar,
     };
   };
 
@@ -45,8 +46,8 @@ export const useMyAuthStore = defineStore('auth', () => {
     const data = {
       "email": newUser.email,
       "emailVisibility": false,
-      "name": newUser.name,
-      "themeMode": newUser.themeMode,
+      // "name": newUser.name,
+      // "themeMode": newUser.themeMode,
       "password": newUser.password,
       "passwordConfirm": newUser.passwordConfirm,
     };

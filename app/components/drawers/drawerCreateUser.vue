@@ -23,7 +23,7 @@
              </div>
 
              <form @submit.prevent="createUser()">
-                 <div>
+                 <!-- <div>
                      <div class="fieldset-legend mt-2" for="name">Full Name</div>
                  </div>
                  <label class="input input-primary validator w-full">
@@ -33,8 +33,7 @@
                          </g>
                      </svg>
                      <input v-model="newUser.name" type="text" placeholder="Your name" required />
-                 </label>
-
+                 </label> -->
                  <div>
                      <div class="fieldset-legend mt-2" for="email">Email</div>
                  </div>
