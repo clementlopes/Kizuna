@@ -42,3 +42,4 @@ export { NewUserType } from '../shared/types/NewUserType';
 export { ToastTypeValue, ToastType } from '../shared/types/ToastType';
 export { UserType } from '../shared/types/UserType';
 export { defineStore, acceptHMRUpdate, usePinia, storeToRefs } from '../node_modules/@pinia/nuxt/dist/runtime/composables';
+export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';

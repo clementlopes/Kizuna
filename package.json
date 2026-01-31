@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^6.1.1",
+    "baseline-browser-mapping": "^2.9.19",
     "daisyui": "^5.5.5",
     "typescript": "^5.9.3"
   }
