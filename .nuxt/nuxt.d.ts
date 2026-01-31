@@ -1,5 +1,5 @@
-/// <reference types="@nuxt/devtools" />
 /// <reference types="@pinia/nuxt" />
+/// <reference types="@nuxt/devtools" />
 /// <reference types="@nuxt/telemetry" />
 /// <reference path="types/builder-env.d.ts" />
 /// <reference path="types/plugins.d.ts" />
@@ -7,7 +7,7 @@
 /// <reference path="types/app.config.d.ts" />
 /// <reference path="types/runtime-config.d.ts" />
 /// <reference types="nuxt/app" />
-/// <reference types="C:/Users/User/OneDrive - Agrupamento de Escolas de Santa Maria Maior/Documentos/PAP/Kizuna/node_modules/@nuxt/nitro-server/dist/index.mjs" />
+/// <reference types="C:/PAP/Kizuna/node_modules/@nuxt/nitro-server/dist/index.mjs" />
 /// <reference types="@pinia/nuxt" />
 /// <reference types="vue-router" />
 /// <reference path="types/middleware.d.ts" />
