@@ -1,7 +1,7 @@
 
 /// <reference path="app.config.d.ts" />
 /// <reference path="runtime-config.d.ts" />
-/// <reference types="C:/Users/User/OneDrive - Agrupamento de Escolas de Santa Maria Maior/Documentos/PAP/Kizuna/node_modules/@nuxt/nitro-server/dist/index.mjs" />
+/// <reference types="C:/PAP/Kizuna/node_modules/@nuxt/nitro-server/dist/index.mjs" />
 /// <reference path="nitro-middleware.d.ts" />
 
 import type { RuntimeConfig } from 'nuxt/schema'
