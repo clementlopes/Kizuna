@@ -104,6 +104,12 @@
                      <img src="https://authjs.dev/img/providers/google.svg" alt="Google" class="w-6 h-6 mr-2" />
                      <span>Sign up with Google</span>
                  </button>
+                 <button
+                     class="w-full btn btn-primary focus:outline-none focus:shadow-outline transition duration-300"
+                     @click="doGithubLogin()">
+                     <img src="https://authjs.dev/img/providers/github.svg" alt="GitHub" class="w-6 h-6 mr-2" />
+                     <span>Sign up with GitHub</span>
+                 </button>
              </div>
          </div>
      </div>
@@ -139,11 +145,11 @@ const handleClose = () => emits('close');
  * References
  */
 const newUser = ref<NewUserType>({
-    name: '',
+    // name: '',
     email: '',
     password: '',
     passwordConfirm: '',
-    themeMode: themeStore.activeTheme,
+    // themeMode: themeStore.activeTheme,
 });
 
 /**
@@ -161,11 +167,11 @@ const close = () => {
 
 const clearForm = () => {
   newUser.value = {
-    name: '',
+    // name: '',
     email: '',
     password: '',
     passwordConfirm: '',
-    themeMode: themeStore.activeTheme,
+    // themeMode: themeStore.activeTheme,
   };
 };
 
@@ -189,6 +195,20 @@ const doGoogleLogin = async () => {
     toast.openToast({ type: 'success', message: `Welcome ${data.record.name}` });
   } catch (e: any) {
     toast.openToast({ type: 'error', message: e.message || 'Google login failed!' });
+    return;
+  }
+  clearForm();
+  close();
+  await navigateTo('/');
+};
+
+const doGithubLogin = async () => {
+  let data;
+  try {
+    data = await authStore.loginWithGithub();
+    toast.openToast({ type: 'success', message: `Welcome ${data.record.name}` });
+  } catch (e: any) {
+    toast.openToast({ type: 'error', message: e.message || 'GitHub login failed!' });
     return;
   }
   clearForm();

@@ -76,6 +76,13 @@
           <span>Sign in with Google</span>
         </button>
 
+        <button
+          class="w-full btn btn-primary focus:outline-none focus:shadow-outline transition duration-300"
+          @click="doGithubLogin()">
+          <img src="https://authjs.dev/img/providers/github.svg" alt="GitHub" class="w-6 h-6 mr-2" />
+          <span>Sign in with GitHub</span>
+        </button>
+
       </div>
     </div>
   </div>
@@ -151,6 +158,22 @@ const doGoogleLogin = async () => {
   let data;
   try {
     data = await authStore.loginWithGoogle();
+    toast.openToast({ type: 'success', message: `Welcome ${data.record.name}` });
+  } catch (e: any) {
+    if (loginForm.value) {
+      loginForm.value.reset();
+    }
+    toast.openToast({ type: 'error', message: e.message || 'Google login failed!' });
+    return;
+  }
+  close();
+  await navigateTo('/');
+};
+
+const doGithubLogin = async () => {
+  let data;
+  try {
+    data = await authStore.loginWithGithub();
     toast.openToast({ type: 'success', message: `Welcome ${data.record.name}` });
   } catch (e: any) {
     if (loginForm.value) {
