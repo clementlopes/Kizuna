@@ -88,6 +88,18 @@ export const useMyAuthStore = defineStore('auth', () => {
     }
   };
 
+const loginWithGithub = async () => {
+    try {
+      const authData = await pocketBaseStore.pb
+        .collection('user')
+        .authWithOAuth2({ provider: 'github' });
+      userStore.saveUserData(mapAuthDataToUser(authData));
+      return authData;
+    } catch (error: any) {
+      throw new Error(error?.message || 'GitHub login failed. Please try again.');
+    }
+  };
+
   const logout = () => {
     pocketBaseStore.pb.authStore.clear();
     localStorage.removeItem('pocketbase_auth');
@@ -132,6 +144,7 @@ export const useMyAuthStore = defineStore('auth', () => {
   return {
     login,
     loginWithGoogle,
+    loginWithGithub,
     logout,
     authRefresh,
     emailChange,
