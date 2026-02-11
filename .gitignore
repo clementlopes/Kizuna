@@ -1,5 +1,8 @@
 node_modules
 
+QWEN.MD
+GEMINI.MD
+
 # Output
 .output
 .vercel
