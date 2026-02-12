@@ -7,15 +7,14 @@
           <!-- Seção de avatar -->
           <div class="flex flex-col h-auto items-center p-6 border-b border-base-300">
             <div class="avatar online mb-4">
-              <div class="w-32 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 relative">
-                <img :src="previewUrl || userData?.avatar || '/img/user.png'" />
+              <div class="w-32 rounded-md border border-base-300/50 shadow-sm ring ring-offset-base-100 ring-offset-2 relative">
+                <img :src="previewUrl || anilistAvatarUrl" class="object-cover" />
                 <div v-if="duplicateData.avatarFile" class="absolute -top-1 -right-1 badge badge-warning badge-sm">
 
                 </div>
               </div>
             </div>
-            <h2 class="text-xl font-bold">{{ userData?.name }}</h2>
-            <p class="text-base-content/70">{{ userData?.email }}</p>
+            <h2 class="text-xl font-bold">{{ anilistUsername }}</h2>
             <div class="mt-4 w-full">
               <label class="btn btn-outline w-full btn-sm gap-2 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -52,10 +51,10 @@
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div class="form-control w-full">
-                  <label class="fieldset-legend" for="name"> Name</label>
-                  <input id="name" v-model="duplicateData.name" type="text" placeholder="Your name"
-                    class="input w-full validator" />
-                  <p class="validator-hint">Required Field!</p>
+                  <label class="fieldset-legend" for="anilistId"> AniList ID</label>
+                  <input id="anilistId" :value="anilistUserId || 'Not linked'" type="text" placeholder="AniList ID"
+                    class="input w-full validator" disabled />
+                  <p class="validator-hint">Non-editable field</p>
                 </div>
 
                 <div class="form-control w-full">
@@ -168,6 +167,8 @@ import { useAlertStore } from '~/composables/useAlertStore';
 import { useToastStore } from '~/composables/useToastStore';
 import { useMyAuthStore } from '~/composables/useMyAuthStore';
 import { useDrawersStore } from '~/composables/useDrawersStore';
+import { usePocketbaseStore } from '~/composables/usePocketbaseStore';
+import { computed } from 'vue';
 
 /**
  * Stores
@@ -178,6 +179,7 @@ const alertStore = useAlertStore();
 const toastStore = useToastStore();
 const myAuthStore = useMyAuthStore();
 const drawersStore = useDrawersStore();
+const pocketbaseStore = usePocketbaseStore();
 /**
  * Props/Emits
  */
@@ -187,6 +189,10 @@ const drawersStore = useDrawersStore();
  */
 const { userData } = storeToRefs(userStore);
 
+// Use the reactive authRecord from pocketbase store for AniList data
+const anilistUsername = computed(() => pocketbaseStore.authRecord?.anilist_username || 'Unknown user');
+const anilistAvatarUrl = computed(() => pocketbaseStore.authRecord?.anilist_avatar_url || '/img/user.png');
+const anilistUserId = computed(() => pocketbaseStore.authRecord?.anilist_user_id);
 
 userData.value.password = '';
 userData.value.passwordConfirm = '';
@@ -318,6 +324,10 @@ const deleteAccount = async () => {
 /**
  * Watchers
  */
+watch(() => pocketbaseStore.authRecord, () => {
+  // The computed properties will automatically update when authRecord changes
+}, { deep: true, immediate: true });
+
 onBeforeRouteLeave(async () => {
   const editedProfile = await userStore.userDataHasEdited(duplicateData.value);
   if (editedProfile) {
