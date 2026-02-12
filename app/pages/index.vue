@@ -2,22 +2,29 @@
   <div class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-6">Welcome to Kizuna</h1>
     
-    <!-- Check if user is authenticated with PocketBase -->
-    <div v-if="!pocketbaseStore.pb.authStore.model">
-      <p>Please log in</p>
-    </div>
-    <div v-else>
-      <!-- Check if user has AniList token -->
-      <div v-if="!pocketbaseStore.pb.authStore.model.anilist_token || 
-                 !pocketbaseStore.pb.authStore.model.anilist_token.trim()">
-        <button @click="loginWithAniList" class="btn btn-info">
-          Link AniList Account
-        </button>
+    <!-- Using client-only to prevent hydration mismatch -->
+    <ClientOnly>
+      <!-- Check if user is authenticated with PocketBase -->
+      <div v-if="!pocketbaseStore.authRecord">
+        <p>Please log in</p>
       </div>
       <div v-else>
-        <p>AniList account linked</p>
+        <!-- Check if user has AniList token -->
+        <div v-if="!pocketbaseStore.authRecord.anilist_token || 
+                   !pocketbaseStore.authRecord.anilist_token.trim()">
+          <button @click="loginWithAniList" class="btn btn-info">
+            Link AniList Account
+          </button>
+        </div>
+        <div v-else>
+          <p>AniList account linked</p>
+        </div>
       </div>
-    </div>
+      
+      <template #fallback>
+        <p>Loading...</p>
+      </template>
+    </ClientOnly>
     
     <ScrollToTop />
   </div>
@@ -35,7 +42,7 @@ const loginWithAniList = () => {
 };
 
 // Watch for changes in the auth store to reactively update the UI
-watch(() => pocketbaseStore.pb.authStore.model?.anilist_token, () => {
+watch(() => pocketbaseStore.authRecord?.anilist_token, () => {
   // The component will automatically re-render when the token changes
 }, { immediate: true });
 </script>
