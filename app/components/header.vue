@@ -38,8 +38,8 @@
     <div class="navbar-end">
       <div v-if="userData">
         <div class="dropdown dropdown-bottom dropdown-end">
-          <div tabindex="0" role="button" class="btn btn-ghost avatar">
-            <div class="w-12 rounded-md border border-base-300/50 shadow-sm ring ring-offset-base-100 ring-offset-2 relative">
+          <div tabindex="0" role="button" class="avatar cursor-pointer">
+            <div class="w-12 rounded-md border border-base-300/30 shadow-sm ring ring-base-content/50 ring-offset-base-100 ring-offset-2 hover:ring-2 relative">
               <img alt="Avatar" :src="avatarUrl" class="object-cover" />
             </div>
           </div>
