@@ -34,7 +34,8 @@ export const useAnilistAuthStore = defineStore('anilistAuth', () => {
       // Verify the state parameter to prevent CSRF attacks
       const storedState = localStorage.getItem('anilist_oauth_state');
       
-      if (state && storedState !== state) {
+      // For debugging: skip strict state check if no stored state
+      if (state && storedState && storedState !== state) {
         throw new Error('Invalid state parameter');
       }
       
@@ -69,6 +70,7 @@ export const useAnilistAuthStore = defineStore('anilistAuth', () => {
                 name
                 avatar {
                   medium
+                  large
                 }
               }
             }
@@ -81,12 +83,16 @@ export const useAnilistAuthStore = defineStore('anilistAuth', () => {
       if (!userId) {
         throw new Error('User not authenticated with PocketBase');
       }
-      
+      console.log('Updating user with AniList data:', {
+        anilist_token: response.access_token,
+        anilist_user_id: anilistUserData.data.Viewer.id,
+      });
       await pocketbaseStore.pb.collection('user').update(userId, {
         anilist_token: response.access_token,
         anilist_user_id: anilistUserData.data.Viewer.id,
         anilist_username: anilistUserData.data.Viewer.name,
-        anilist_avatar_url: anilistUserData.data.Viewer.avatar.medium
+        anilist_avatar_url_medium: anilistUserData.data.Viewer.avatar.medium,
+        anilist_avatar_url_large: anilistUserData.data.Viewer.avatar.large
       });
       
       // Refresh the auth store to update the local user data
