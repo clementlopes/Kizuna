@@ -6,8 +6,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - ANILIST_CLIENT_ID=31080
+        - ANILIST_CLIENT_SECRET=UL75RSpxqVbJVndYI6hZ8tPmUY5sRVqFzebin0hH
+        - ANILIST_REDIRECT_URI=https://kizuna.clementlopes.site/auth/callback
+        - POCKETBASE_URL=https://anna.clementlopes.site
     image: kizuna
     container_name: kizuna
     restart: unless-stopped
     ports:
-      - "3002:3000"   # Mapeia a porta 3000 do container para o host
+      - "3002:3000"
