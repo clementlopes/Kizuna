@@ -66,6 +66,7 @@ export const useAnilistAuthStore = defineStore('anilistAuth', () => {
                 id
                 name
                 avatar {
+                  medium
                   large
                 }
               }
@@ -73,18 +74,19 @@ export const useAnilistAuthStore = defineStore('anilistAuth', () => {
           `
         }
       });
-      
+
       // Update the user record in PocketBase with AniList data
       const userId = pocketbaseStore.pb.authStore.model?.id;
       if (!userId) {
         throw new Error('User not authenticated with PocketBase');
       }
-      
+
       await pocketbaseStore.pb.collection('user').update(userId, {
         anilist_token: response.access_token,
         anilist_user_id: anilistUserData.data.Viewer.id,
         anilist_username: anilistUserData.data.Viewer.name,
-        anilist_avatar_url: anilistUserData.data.Viewer.avatar.large
+        anilist_avatar_url_medium: anilistUserData.data.Viewer.avatar.medium,
+        anilist_avatar_url_large: anilistUserData.data.Viewer.avatar.large
       });
       
       // Refresh the auth store to update the local user data
