@@ -3,10 +3,23 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const { code, redirect_uri } = body;
   
+  const anilistClientId = process.env.ANILIST_CLIENT_ID;
+  const anilistClientSecret = process.env.ANILIST_CLIENT_SECRET;
+  
+  console.log('ANILIST_CLIENT_ID:', anilistClientId ? 'set' : 'not set');
+  console.log('ANILIST_CLIENT_SECRET:', anilistClientSecret ? 'set' : 'not set');
+  
   if (!code) {
     throw createError({
       statusCode: 400,
       statusMessage: 'Authorization code is required'
+    });
+  }
+  
+  if (!anilistClientId || !anilistClientSecret) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'AniList credentials not configured on server'
     });
   }
   
@@ -18,8 +31,8 @@ export default defineEventHandler(async (event) => {
       },
       body: {
         grant_type: 'authorization_code',
-        client_id: process.env.ANILIST_CLIENT_ID,
-        client_secret: process.env.ANILIST_CLIENT_SECRET,
+        client_id: anilistClientId,
+        client_secret: anilistClientSecret,
         code,
         redirect_uri,
       },
