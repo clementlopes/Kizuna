@@ -1,41 +1,29 @@
+
 // server/api/anilist/exchange-token.post.ts
 export default defineEventHandler(async (event) => {
+  const config = useRuntimeConfig();
+
   const body = await readBody(event);
   const { code, redirect_uri } = body;
-  
-  const anilistClientId = process.env.ANILIST_CLIENT_ID;
-  const anilistClientSecret = process.env.ANILIST_CLIENT_SECRET;
-  
-  console.log('=== ANILIST DEBUG ===');
-  console.log('ANILIST_CLIENT_ID:', anilistClientId ? `set (${anilistClientId})` : 'NOT SET');
-  console.log('ANILIST_CLIENT_SECRET:', anilistClientSecret ? 'set' : 'NOT SET');
-  console.log('redirect_uri:', redirect_uri);
-  console.log('=====================');
-  
+
   if (!code) {
     throw createError({
       statusCode: 400,
       statusMessage: 'Authorization code is required'
     });
   }
-  
-  if (!anilistClientId || !anilistClientSecret) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: 'AniList credentials not configured on server'
-    });
-  }
-  
+
   try {
-    const response = await $fetch<{ access_token: string; expires_in: number }>('https://anilist.co/api/v2/oauth/token', {
+    // Exchange authorization code for access token
+    const response = await $fetch('https://anilist.co/api/v2/oauth/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: {
         grant_type: 'authorization_code',
-        client_id: anilistClientId,
-        client_secret: anilistClientSecret,
+        client_id: config.public.anilistClientId,
+        client_secret: config.anilistClientSecret,
         code,
         redirect_uri,
       },
