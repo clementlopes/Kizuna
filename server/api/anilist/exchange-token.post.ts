@@ -1,7 +1,5 @@
 // server/api/anilist/exchange-token.post.ts
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
-  
   const body = await readBody(event);
   const { code, redirect_uri } = body;
   
@@ -13,16 +11,15 @@ export default defineEventHandler(async (event) => {
   }
   
   try {
-    // Exchange authorization code for access token
-    const response = await $fetch('https://anilist.co/api/v2/oauth/token', {
+    const response = await $fetch<{ access_token: string; expires_in: number }>('https://anilist.co/api/v2/oauth/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: {
         grant_type: 'authorization_code',
-        client_id: config.public.anilistClientId,
-        client_secret: config.anilistClientSecret,
+        client_id: process.env.ANILIST_CLIENT_ID,
+        client_secret: process.env.ANILIST_CLIENT_SECRET,
         code,
         redirect_uri,
       },

@@ -1,8 +1,6 @@
-export default defineNuxtPlugin(() => {
-  const config = useRuntimeConfig();
+import { useAppConfig } from '~/composables/useAppConfig';
 
-  config.public.pocketbaseUrl = process.env.POCKETBASE_URL || 'https://anna.clementlopes.site';
-  config.public.anilistClientId = process.env.ANILIST_CLIENT_ID || '';
-  config.public.anilistRedirectUri = process.env.ANILIST_REDIRECT_URI || '';
-  config.anilistClientSecret = process.env.ANILIST_CLIENT_SECRET || '';
+export default defineNuxtPlugin(async (nuxtApp) => {
+  const { fetchConfig } = useAppConfig();
+  await fetchConfig();
 });
