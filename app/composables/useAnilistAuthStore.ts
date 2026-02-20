@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia';
 import { usePocketbaseStore } from './usePocketbaseStore';
-import { useUserStore } from './useUserStore';
 import { useToastStore } from './useToastStore';
 
 export const useAnilistAuthStore = defineStore('anilistAuth', () => {
   const pocketbaseStore = usePocketbaseStore();
-  const userStore = useUserStore();
   const toastStore = useToastStore();
 
   const loginWithAniList = () => {
@@ -68,7 +66,7 @@ export const useAnilistAuthStore = defineStore('anilistAuth', () => {
                 id
                 name
                 avatar {
-                  medium
+                  large
                 }
               }
             }
@@ -86,7 +84,7 @@ export const useAnilistAuthStore = defineStore('anilistAuth', () => {
         anilist_token: response.access_token,
         anilist_user_id: anilistUserData.data.Viewer.id,
         anilist_username: anilistUserData.data.Viewer.name,
-        anilist_avatar_url: anilistUserData.data.Viewer.avatar.medium
+        anilist_avatar_url: anilistUserData.data.Viewer.avatar.large
       });
       
       // Refresh the auth store to update the local user data
