@@ -2,12 +2,12 @@
 version: '3.8'
 
 services:
-  portfolio:
+  kizuna:
     build:
       context: .
       dockerfile: Dockerfile
-    image: portfolio
-    container_name: portfolio
+    image: kizuna
+    container_name: kizuna
     restart: unless-stopped
     ports:
       - "3000:3000"   # Mapeia a porta 3000 do container para o host
