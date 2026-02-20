@@ -12,7 +12,7 @@ export default defineNuxtConfig({
     public: {
       pocketbaseUrl: process.env.POCKETBASE_URL || 'https://anna.clementlopes.site',
       anilistClientId: process.env.ANILIST_CLIENT_ID,
-      anilistRedirectUri: process.env.ANILIST_REDIRECT_URI || 'http://localhost:3000/auth/callback',
+      anilistRedirectUri: process.env.ANILIST_REDIRECT_URI,
     },
     anilistClientSecret: process.env.ANILIST_CLIENT_SECRET,
   },
