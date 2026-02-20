@@ -6,8 +6,11 @@ export default defineEventHandler(async (event) => {
   const anilistClientId = process.env.ANILIST_CLIENT_ID;
   const anilistClientSecret = process.env.ANILIST_CLIENT_SECRET;
   
-  console.log('ANILIST_CLIENT_ID:', anilistClientId ? 'set' : 'not set');
-  console.log('ANILIST_CLIENT_SECRET:', anilistClientSecret ? 'set' : 'not set');
+  console.log('=== ANILIST DEBUG ===');
+  console.log('ANILIST_CLIENT_ID:', anilistClientId ? `set (${anilistClientId})` : 'NOT SET');
+  console.log('ANILIST_CLIENT_SECRET:', anilistClientSecret ? 'set' : 'NOT SET');
+  console.log('redirect_uri:', redirect_uri);
+  console.log('=====================');
   
   if (!code) {
     throw createError({

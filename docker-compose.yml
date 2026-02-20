@@ -7,10 +7,10 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - ANILIST_CLIENT_ID=31080
-        - ANILIST_CLIENT_SECRET=UL75RSpxqVbJVndYI6hZ8tPmUY5sRVqFzebin0hH
-        - ANILIST_REDIRECT_URI=https://kizuna.clementlopes.site/auth/callback
-        - POCKETBASE_URL=https://anna.clementlopes.site
+        ANILIST_CLIENT_ID: 31080
+        ANILIST_CLIENT_SECRET: UL75RSpxqVbJVndYI6hZ8tPmUY5sRVqFzebin0hH
+        ANILIST_REDIRECT_URI: https://kizuna.clementlopes.site/auth/callback
+        POCKETBASE_URL: https://anna.clementlopes.site
     image: kizuna
     container_name: kizuna
     restart: unless-stopped
