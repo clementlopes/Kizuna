@@ -1,0 +1,24 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  kizuna:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ANILIST_CLIENT_ID: 31080
+        ANILIST_CLIENT_SECRET: UL75RSpxqVbJVndYI6hZ8tPmUY5sRVqFzebin0hH
+        ANILIST_REDIRECT_URI: https://kizuna.clementlopes.site/auth/callback
+        POCKETBASE_URL: https://anna.clementlopes.site
+    image: kizuna
+    container_name: kizuna
+    restart: unless-stopped
+    environment:
+      - ANILIST_CLIENT_ID=${ANILIST_CLIENT_ID}
+      - ANILIST_CLIENT_SECRET=${ANILIST_CLIENT_SECRET}
+      - ANILIST_REDIRECT_URI=${ANILIST_REDIRECT_URI}
+      - POCKETBASE_URL=${POCKETBASE_URL}
+      - HOST=0.0.0.0
+    ports:
+      - "3002:3000"
