@@ -1,4 +1,5 @@
 import tailwindcss from '@tailwindcss/vite';
+import { defineNuxtConfig } from 'nuxt/config';
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
@@ -10,11 +11,11 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt'],
   runtimeConfig: {
     public: {
-      pocketbaseUrl: process.env.POCKETBASE_URL || 'https://anna.clementlopes.site',
-      anilistClientId: process.env.ANILIST_CLIENT_ID,
-      anilistRedirectUri: process.env.ANILIST_REDIRECT_URI,
+      pocketbaseUrl: '',
+      anilistClientId: '',
+      anilistRedirectUri: '',
     },
-    anilistClientSecret: process.env.ANILIST_CLIENT_SECRET,
+    anilistClientSecret: '',
   },
   app: {
     head: {
