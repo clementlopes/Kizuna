@@ -1,6 +1,18 @@
 # Use the official Node.js 20 Alpine image as the base
 FROM node:20-alpine
 
+# Build arguments for environment variables
+ARG ANILIST_CLIENT_ID
+ARG ANILIST_CLIENT_SECRET
+ARG ANILIST_REDIRECT_URI
+ARG POCKETBASE_URL
+
+# Set environment variables from build args
+ENV ANILIST_CLIENT_ID=$ANILIST_CLIENT_ID
+ENV ANILIST_CLIENT_SECRET=$ANILIST_CLIENT_SECRET
+ENV ANILIST_REDIRECT_URI=$ANILIST_REDIRECT_URI
+ENV POCKETBASE_URL=$POCKETBASE_URL
+
 # Set the working directory inside the container
 WORKDIR /app
 
