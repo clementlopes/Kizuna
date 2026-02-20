@@ -54,8 +54,8 @@
       <div v-if="userData">
         <div class="dropdown dropdown-bottom dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar" >
-            <div class="w-10 rounded-full border-2 border-primary">
-              <img alt="Avatar" :src="userData?.avatar || '/img/user.png'" />
+            <div class="w-10 rounded-md border border-base-300/50 shadow-sm">
+              <img alt="Avatar" :src="avatarUrl" class="object-cover" />
             </div>
           </div>
           <ul class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
@@ -119,19 +119,26 @@
  * Stores
  */
 
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 import { useThemeStore } from '~/composables/useThemeStore';
 import { useDrawersStore } from '~/composables/useDrawersStore';
 import { useUserStore } from '~/composables/useUserStore';
 import { useMyAuthStore } from '~/composables/useMyAuthStore';
 import { themeChange } from 'theme-change';
 import { storeToRefs } from 'pinia';
+import { usePocketbaseStore } from '~/composables/usePocketbaseStore';
 
 const themeStore = useThemeStore();
 const drawerStore = useDrawersStore();
 const userStore = useUserStore();
 const authStore = useMyAuthStore();
+const pocketbaseStore = usePocketbaseStore();
 const { userData } = storeToRefs(userStore);
+
+// Use AniList avatar if available, otherwise fallback to regular avatar
+const avatarUrl = computed(() => {
+  return pocketbaseStore.authRecord?.anilist_avatar_url || userData?.avatar || '/img/user.png';
+});
 
 /**
  * Props/Emits
