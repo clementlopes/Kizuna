@@ -11,10 +11,10 @@ services:
     container_name: kizuna
     restart: unless-stopped
     environment:
-      - ANILIST_CLIENT_ID=${ANILIST_CLIENT_ID}
-      - ANILIST_CLIENT_SECRET=${ANILIST_CLIENT_SECRET}
-      - ANILIST_REDIRECT_URI=${ANILIST_REDIRECT_URI}
-      - POCKETBASE_URL=${POCKETBASE_URL}
+      - ANILIST_CLIENT_ID
+      - ANILIST_CLIENT_SECRET
+      - ANILIST_REDIRECT_URI
+      - POCKETBASE_URL
       - HOST=0.0.0.0
     ports:
       - "3002:3000"
