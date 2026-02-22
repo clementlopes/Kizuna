@@ -6,7 +6,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      
+      args:
+        - ANILIST_CLIENT_ID=${ANILIST_CLIENT_ID}
+        - ANILIST_CLIENT_SECRET=${ANILIST_CLIENT_SECRET}
+        - ANILIST_REDIRECT_URI=${ANILIST_REDIRECT_URI}
+        - POCKETBASE_URL=${POCKETBASE_URL}
     image: kizuna
     container_name: kizuna
     restart: unless-stopped
